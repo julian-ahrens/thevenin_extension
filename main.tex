@@ -104,7 +104,7 @@ In summary, the power dissipated in the network is a non-negative quadratic poly
   \label{equivalent_circuit}
 \end{figure}
 
-In order to obtain a power conservative equivalent circuit, a circuit exhibiting both the same electrical properites as the original network and the same power dissipation in its resistors has to be found.
+In order to obtain a power conservative equivalent circuit, a circuit exhibiting both the same electrical properties as the original network and the same power dissipation in its resistors has to be found.
 The Th\'{e}venin theorem reduces the problem of electrical equivalence to the problem of finding a network satisfying $V_{\opout} = V_{\opth} - I_{\opout} \mult R_{\opth}$.
 
 As shown in Section~\ref{section_power}, the power dissipated by the resistors in the network is a non-negative quadratic polynomial in $I_{\opout}$ with leading coefficient $R_{\opth}$.
@@ -127,7 +127,7 @@ In order to achieve equivalence, the values of the elements $R_{\opth}$ and $I_{
 \end{displaymath}
 In the case $P_{\opx} = 0$, the resistor $R_{\opx}$ can be omitted.
 
-It is a straighforward exercise to verify that, as long as $V_{\opx} \ne 0$ or $P_{\opx} = 0$, the obtained circuit is indeed both power conservative and electrically equivalent.
+It is a straightforward exercise to verify that, as long as $V_{\opx} \ne 0$ or $P_{\opx} = 0$, the obtained circuit is indeed both power conservative and electrically equivalent.
 The construction fails in the case where $V_{\opx} = 0$ and $P_{\opx} \ne 0$ since then the resistor $R_{\opx}$ is unable to dissipate power.
 However, as long as $I_{\opx} \ne 0$, a resistor of value $P_{\opx} / I_{\opx}^{2}$ may be connected in series with $I_{\opx}$ instead.
 If both $V_{\opx} = 0$ and $I_{\opx} = 0$ and yet still $P_{\opx} \ne 0$, a separate source has to be added to the circuit and a suitable resistor connected across its terminals.
