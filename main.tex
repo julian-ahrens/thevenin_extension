@@ -35,12 +35,22 @@ The construction is divided into two parts: in Section~\ref{section_power} an an
   \centering
   \input{figures/loaded_network.tex}
   \caption{Electrical network with current load}
-  \label{loaded_network}
+  \label{figure_loaded_network}
 \end{figure}
 
-For the analysis of the power dissipated by the resistors in an electrical network consisting only of voltage sources, current sources, and resistors, a current load $I_{\opout}$ is attached to the two terminals of the network as shown in \figurename~\ref{loaded_network}.
+For the analysis of the power dissipated by the resistors in an electrical network consisting only of voltage sources, current sources, and resistors, a current load $I_{\opout}$ is attached to the two terminals of the network as shown in \figurename~\ref{figure_loaded_network}.
 In the following, the voltage across this load is denoted by $V_{\opout}$.
 Furthermore, let $R_{k}$, $k = 0, \ldots, n - 1$, denote the values of the resistors in the network and let $V_{\opth}$ and $R_{\opth}$ denote the values of the voltage source and resistor of the Th\'{e}venin equivalent of the network, respectively.
+The output voltage of the network is thus given by
+\begin{equation}
+    V_{\opout}
+  = V_{\opth} - I_{\opout} \mult R_{\opth}
+  \enskip .
+  \label{eq_v_out}
+\end{equation}
+
+In order to simplify the analysis, only the case where $R_{\opth}$ is non-zero will be treated.
+The case where $R_{\opth}$ is zero is fairly simple as in that case the power dissipated in the resistors of the network is independent of the load current $I_{\opout}$.
 
 Now examine a modified version of the network where all the sources are switched off, i.e., all voltage sources are replaced by a short circuit and all current sources are replaced by an open circuit.
 The current through each of the resistors $R_{k}$ in this modified network is proportional to the current flowing through the terminals of the network, i.e., for each $k$, there exists a unique constant $c_{k}$ such that the current through the resistor $R_{k}$ is equal to $I_{k, \opoff} = I_{\opout} \mult c_{k}$.
@@ -49,50 +59,52 @@ In particular, the power dissipated by $R_{k}$ is equal to
     P_{k, \opoff}
   = I_{k, \opoff}^{2} \mult R_{k}
   = (I_{\opout} \mult c_{k})^{2} \mult R_{k}
-  \enskip.
-  \label{equation_power_k_off}
+  \enskip .
+  \label{eq_p_k_off}
 \end{equation}
 Furthermore, since the modified network consists purely of resistors and its equivalent resistance is, by the Th\'{e}venin theorem, equal to $R_{\opth}$, the total power dissipated by the entire network is given by
 \begin{equation}
     P_{\optotal, \opoff}
   = I_{\opout}^{2} \mult R_{\opth}
-  \enskip.
-  \label{equation_power_total_off}
+  \enskip .
+  \label{eq_p_total_off}
 \end{equation}
-Now since the total power dissipated by the entire network has to be equal to the sum of all the power dissipated in each individual resistor, combining \eqref{equation_power_k_off}~and~\eqref{equation_power_total_off}, we obtain the equation
-\begin{displaymath}
-    I_{\opout}^{2} \mult R_{\opth}
-  = \sum_{k} (I_{\opout} \mult c_{k})^{2} \mult R_{k}
-  = I_{\opout}^{2} \mult \sum_{k} c_{k}^{2} \mult R_{k}
-\end{displaymath}
+Now since the total power dissipated by the entire network has to be equal to the sum of all the power dissipated in each individual resistor, combining \eqref{eq_p_k_off}~and~\eqref{eq_p_total_off}, we obtain the equation
+\begin{align*}
+         I_{\opout}^{2} \mult R_{\opth}
+     & = P_{\optotal, \opoff}
+  \\ & = \sum_{k} P_{k, \opoff}
+       = \sum_{k} (I_{\opout} \mult c_{k})^{2} \mult R_{k}
+       = I_{\opout}^{2} \mult \sum_{k} c_{k}^{2} \mult R_{k}
+\end{align*}
 and therefore
 \begin{equation}
     \sum_{k} c_{k}^{2} \mult R_{k}
   = R_{\opth}
-  \enskip.
-  \label{equation_leading_coefficient}
+  \enskip .
+  \label{eq_leading_coefficient}
 \end{equation}
 
 Returning to the original network, by the superposition principle, for each $k$, the current through the resistor $R_{k}$ is given by $I_{k} = I_{k, \opoff} + I_{k, 0} = I_{\opout} \mult c_{k} + I_{k, 0}$, where $I_{k, 0}$ denotes the current through the resistor at zero load current $I_{\opout}$.
 Correspondingly, for each $k$, the power dissipated by the resistor $R_{k}$ is equal to
 \begin{align*}
          P_{k}
-     & = I_{k}^{2} \mult R_{k}
-       = (I_{\opout} \mult c_{k} + I_{k, 0})^{2} \mult R_{k}
+       = I_{k}^{2} \mult R_{k}
+     & = (I_{\opout} \mult c_{k} + I_{k, 0})^{2} \mult R_{k}
   \\ & = I_{\opout}^{2} \mult c_{k}^{2} \mult R_{k} + I_{\opout} \mult c_{k} \mult I_{k, 0} \cdot 2 \mult R_{k} + I_{k, 0}^{2} \mult R_{k}
-  \enskip.
+  \enskip .
 \end{align*}
-Summing over all the resistors and applying~\eqref{equation_leading_coefficient} yields the total power dissipated by the network:
+Summing over all the resistors and applying~\eqref{eq_leading_coefficient} yields the total power dissipated by the network:
 \begin{align}
          P_{\optotal}
      & = \sum_{k} P_{k}
   \nonumber \\ & = \sum_{k} \bigl( I_{\opout}^{2} \mult c_{k}^{2} \mult R_{k} + I_{\opout} \mult c_{k} \mult I_{k, 0} \cdot 2 \mult R_{k} + I_{k, 0}^{2} \mult R_{k} \bigr)
   \nonumber \\ & = I_{\opout}^{2} \mult \sum_{k} c_{k}^{2} \mult R_{k} + I_{\opout} \cdot 2 \mult \sum_{k} c_{k} \mult I_{k, 0} \mult R_{k} \nonumber \\ & \qquad + \sum_{k} I_{k, 0}^{2} \mult R_{k}
   \nonumber \\ & = I_{\opout}^{2} \mult R_{\opth} + I_{\opout} \cdot 2 \mult \sum_{k} c_{k} \mult I_{k, 0} \mult R_{k} + \sum_{k} I_{k, 0}^{2} \mult R_{k}
-  \enskip.
-  \label{equation_power_total}
+  \enskip .
+  \label{eq_p_total}
 \end{align}
-In summary, the power dissipated in the network is a non-negative quadratic polynomial in $I_{\opout}$ with leading coefficient $R_{\opth}$.
+The key observation to be made here is that the power dissipated in the network is a quadratic polynomial in $I_{\opout}$ with leading coefficient $R_{\opth}$.
 
 \section{Power conservative equivalent circuit}
 \label{section_circuit}
@@ -101,38 +113,76 @@ In summary, the power dissipated in the network is a non-negative quadratic poly
   \centering
   \input{figures/equivalent_circuit.tex}
   \caption{Power conservative equivalent circuit with current load}
-  \label{equivalent_circuit}
+  \label{figure_equivalent_circuit}
 \end{figure}
 
 In order to obtain a power conservative equivalent circuit, a circuit exhibiting both the same electrical properties as the original network and the same power dissipation in its resistors has to be found.
-The Th\'{e}venin theorem reduces the problem of electrical equivalence to the problem of finding a network satisfying $V_{\opout} = V_{\opth} - I_{\opout} \mult R_{\opth}$.
+The Th\'{e}venin theorem reduces the problem of electrical equivalence to the problem of finding a circuit satisfying~\eqref{eq_v_out}.
+As shown in Section~\ref{section_power}, the power dissipated by the resistors in the original network is given by~\eqref{eq_p_total} and hence the problem of finding a power conservative equivalent circuit reduces to the problem of finding an electrically equivalent circuit such that the total power dissipated by its resistors is equal to the right-hand side of~\eqref{eq_p_total}.
 
-As shown in Section~\ref{section_power}, the power dissipated by the resistors in the network is a non-negative quadratic polynomial in $I_{\opout}$ with leading coefficient $R_{\opth}$.
-Elementary algebra shows that such a polynomial can always be parametrized as
+One possibility of obtaining a power conservative equivalent circuit is shown in \figurename~\ref{figure_equivalent_circuit}.
+The resistor $R_{\opx}$ contained in this circuit does not contribute anything to the electrical properties of the circuit, its sole purpose being the dissipation of a fixed amount of power which in the following will be referred to as $P_{\opx}$.
+The current flowing through the resistor $R_{\opth}$ is given by $I_{\opout} - I_{\opx}$, resulting in an output voltage of
 \begin{equation}
-    P_{\optotal}
-  = (I_{\opout} - I_{\opx})^{2} \mult R_{\opth} + P_{\opx}
-  \label{equation_parametrization}
+    V_{\opout}
+  = V_{\opx} - (I_{\opout} - I_{\opx}) \mult R_{\opth}
+  = V_{\opx} - I_{\opout} \mult R_{\opth} + I_{\opx} \mult R_{\opth}
+  \enskip .
+  \label{eq_equivalent_v_out}
 \end{equation}
-The parameters $P_{\opx} \ge 0$ and $I_{\opx}$ are equal to the minimum power dissipated by the resistors in the network and the current at which this minimum is attained, respectively.
+Furthermore, the power dissipated by $R_{\opth}$ is given by $(I_{\opout} - I_{\opx})^{2} \mult R_{\opth}$ and therefore the total power dissipated by the resistors $R_{\opth}$ and $R_{\opx}$ amounts to
+\begin{align}
+                   P_{\optotal}
+               & = (I_{\opout} - I_{\opx})^{2} \mult R_{\opth} + P_{\opx}
+  \nonumber \\ & = I_{\opout}^{2} \mult R_{\opth} - I_{\opout} \mult I_{\opx} \cdot 2 \mult R_{\opth} + I_{\opx}^{2} \mult R_{\opth} + P_{\opx}
+  \enskip .
+  \label{eq_equivalent_p_total}
+\end{align}
 
-One possibility of obtaining a power conservative equivalent circuit is shown in \figurename~\ref{equivalent_circuit}.
-In order to achieve equivalence, the values of the elements $R_{\opth}$ and $I_{\opx}$ have to be chosen as the values appearing in~\eqref{equation_parametrization} and the values of the elements $R_{\opx}$ and $V_{\opx}$ have to be chosen according to the following equations:
+In order to achieve power conservative equivalence to the original network analyzed in Section~\ref{section_power}, the values of the elements $V_{\opx}$, $I_{\opx}$, and $R_{\opx}$ have to be chosen such that the right-hand sides of equations \eqref{eq_v_out}~and~\eqref{eq_equivalent_v_out} and the right-hand sides of equations \eqref{eq_p_total}~and~\eqref{eq_equivalent_p_total} become equal.
+The right-hand sides of \eqref{eq_p_total}~and~\eqref{eq_equivalent_p_total} are both quadratic polynomials in $I_{\opout}$ with leading coefficient $R_{\opth}$ and achieving equality reduces to equating the remaining coefficients, yielding
 \begin{displaymath}
+    2 \mult \sum_{k} c_{k} \mult I_{k, 0} \mult R_{k}
+  = -I_{\opx} \cdot 2 \mult R_{\opth}
+\end{displaymath}
+and hence
+\begin{equation}
+    I_{\opx}
+  = -\sum_{k} c_{k} \mult I_{k, 0} \mult \frac{R_{k}}{R_{\opth}}
+  \label{eq_i_x}
+\end{equation}
+and
+\begin{displaymath}
+    \sum_{k} I_{k, 0}^{2} \mult R_{k}
+  = I_{\opx}^{2} \mult R_{\opth} + P_{\opx}
+\end{displaymath}
+and hence
+\begin{equation}
+    P_{\opx}
+  = \sum_{k} I_{k, 0}^{2} \mult R_{k} - I_{\opx}^{2} \mult R_{\opth}
+  \enskip .
+  \label{eq_p_x}
+\end{equation}
+Finally, in view of \eqref{eq_v_out}~and~\eqref{eq_equivalent_v_out}, $V_{\opx}$ has to be chosen such that
+\begin{displaymath}
+    V_{\opth} - I_{\opout} \mult R_{\opth}
+  = V_{\opx} - I_{\opout} \mult R_{\opth} + I_{\opx} \mult R_{\opth}
+  \enskip ,
+\end{displaymath}
+i.e.,
+\begin{equation}
     V_{\opx}
   = V_{\opth} - I_{\opx} \mult R_{\opth}
-  \qquad
-    R_{\opx}
-  = \frac{V_{\opx}^{2}}{P_{\opx}}
-\end{displaymath}
-In the case $P_{\opx} = 0$, the resistor $R_{\opx}$ can be omitted.
+  \enskip .
+  \label{eq_v_x}
+\end{equation}
 
-It is a straightforward exercise to verify that, as long as $V_{\opx} \ne 0$ or $P_{\opx} = 0$, the obtained circuit is indeed both power conservative and electrically equivalent.
-The construction fails in the case where $V_{\opx} = 0$ and $P_{\opx} \ne 0$ since then the resistor $R_{\opx}$ is unable to dissipate power.
-However, as long as $I_{\opx} \ne 0$, a resistor of value $P_{\opx} / I_{\opx}^{2}$ may be connected in series with $I_{\opx}$ instead.
-If both $V_{\opx} = 0$ and $I_{\opx} = 0$ and yet still $P_{\opx} \ne 0$, a separate source has to be added to the circuit and a suitable resistor connected across its terminals.
-Since in each of these special cases some of the elements disappear from the circuit, a power conservative equivalent circuit can nevertheless always be constructed from at most four elements.
-These four elements clearly correspond to the four degrees of freedom $V_{\opth}$, $R_{\opth}$, $P_{\opx}$, and $I_{\opx}$ in the above characterization of the network.
+All that remains is to choose the resistor $R_{\opx}$ such that the power dissipated by it is equal to $P_{\opx}$.
+However, this is only possible in the case where $P_{\opx}$ and $V_{\opx}$ are both non-zero, as then $R_{\opx}$ can be chosen to be $V_{\opx}^{2} / P_{\opx}$, leading to a power dissipation of $V_{\opx}^{2} / R_{\opx} = P_{\opx}$.
+In the remaining cases, the circuit has to be modified slightly.
+In the case where $P_{\opx}$ is zero, $R_{\opx}$ can simply be replaced by an open circuit.
+In the case where $P_{\opx}$ is non-zero and $V_{\opx}$ is zero, $R_{\opx}$ and $V_{\opx}$ can be replaced by a short circuit and a separate source with a suitable resistor connected across its terminals added to the circuit so that the power dissipated in that resistor is equal to $P_{\opx}$.
+Note that none of these modifications increase the number of elements in the circuit, i.e., a power conservative equivalent circuit can always be constructed using at most four elements.
 
 \bibliography{main}
 
